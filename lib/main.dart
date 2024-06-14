@@ -45,12 +45,18 @@ class _TodoPageState extends State<TodoPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             TextField(onSubmitted: (val){_addTodo(val);}),
-
+            Expanded(child: ListView.builder(
+                itemCount: _todoList.length,
+                itemBuilder: (context, i) {
+                  return Text(_todoList[i]);
+                }
+            ))
           ],
         ),
       ),
