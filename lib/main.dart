@@ -50,7 +50,8 @@ class _TodoPageState extends State<TodoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TextField(onSubmitted: (val){_addTodo(val);}),
+            TextField(decoration: const InputDecoration(labelText: 'Enter your activity here'),
+                onSubmitted: (val){_addTodo(val);}),
             Expanded(child: ListView.builder(
                 itemCount: _todoList.length,
                 itemBuilder: (context, i) {
