@@ -38,7 +38,7 @@ class _TodoPageState extends State<TodoPage> {
     });
   }
   TextEditingController controller = TextEditingController();
-
+  FocusNode myFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +53,13 @@ class _TodoPageState extends State<TodoPage> {
           children: <Widget>[
             TextField(
                 controller: controller,
+                focusNode: myFocusNode,
                 decoration: const InputDecoration(labelText: 'Enter your activity here'),
-                onSubmitted: (val) => {_addTodo(val),controller.clear()}
+                onSubmitted: (val) => {
+                  _addTodo(val),
+                  controller.clear(),
+                  myFocusNode.requestFocus(),
+                }
             ),
             Expanded(child: ListView.builder(
                 itemCount: _todoList.length,
