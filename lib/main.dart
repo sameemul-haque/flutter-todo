@@ -37,8 +37,11 @@ class _TodoPageState extends State<TodoPage> {
       _todoList.add(val);
     });
   }
+
   TextEditingController controller = TextEditingController();
   FocusNode myFocusNode = FocusNode();
+  String bullet = "\u2022 ";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +67,7 @@ class _TodoPageState extends State<TodoPage> {
             Expanded(child: ListView.builder(
                 itemCount: _todoList.length,
                 itemBuilder: (context, i) {
-                  return Text(_todoList[i]);
+                  return Text(bullet + _todoList[i]);
                 }
             ))
           ],
