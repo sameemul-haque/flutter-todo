@@ -37,6 +37,7 @@ class _TodoPageState extends State<TodoPage> {
       _todoList.add(val);
     });
   }
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,11 @@ class _TodoPageState extends State<TodoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TextField(decoration: const InputDecoration(labelText: 'Enter your activity here'),
-                onSubmitted: (val){_addTodo(val);}),
+            TextField(
+                controller: controller,
+                decoration: const InputDecoration(labelText: 'Enter your activity here'),
+                onSubmitted: (val) => {_addTodo(val),controller.clear()}
+            ),
             Expanded(child: ListView.builder(
                 itemCount: _todoList.length,
                 itemBuilder: (context, i) {
