@@ -31,17 +31,18 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   final _todoList = [];
+  final _checkedList = [];
 
   void _addTodo(val) {
     setState(() {
       _todoList.add(val);
+      _checkedList.add(false);
     });
   }
 
   TextEditingController controller = TextEditingController();
   FocusNode myFocusNode = FocusNode();
   String bullet = "\u2022 ";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +73,13 @@ class _TodoPageState extends State<TodoPage> {
                     return ListTile(
                       title: Text(_todoList[i]),
                       tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
+                      trailing: Checkbox(
+                        value: _checkedList[i],
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _checkedList[i] = value ?? false;
+                          });
+                        },)
                     );
                   }
                 )
