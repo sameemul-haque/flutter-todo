@@ -65,12 +65,17 @@ class _TodoPageState extends State<TodoPage> {
                 }
             ),
             const SizedBox(height: 20),
-            Expanded(child: ListView.builder(
-                itemCount: _todoList.length,
-                itemBuilder: (context, i) {
-                  return Text(bullet + _todoList[i]);
-                }
-            ))
+            Expanded(
+                child: ListView.builder(
+                  itemCount: _todoList.length,
+                  itemBuilder: (context, i) {
+                    return ListTile(
+                      title: Text(_todoList[i]),
+                      tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
+                    );
+                  }
+                )
+            )
           ],
         ),
       ),
