@@ -64,6 +64,7 @@ class _TodoPageState extends State<TodoPage> {
                   myFocusNode.requestFocus(),
                 }
             ),
+            const SizedBox(height: 20),
             Expanded(child: ListView.builder(
                 itemCount: _todoList.length,
                 itemBuilder: (context, i) {
