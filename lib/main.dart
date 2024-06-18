@@ -59,12 +59,9 @@ class _TodoPageState extends State<TodoPage> {
                 controller: controller,
                 focusNode: myFocusNode,
                 decoration: const InputDecoration(labelText: 'Enter your activity here'),
-                onSubmitted: (val) => {
-                  _addTodo(val),
-                  controller.clear(),
-                  myFocusNode.requestFocus(),
-                }
+
             ),
+            TextButton(onPressed: (){_addTodo(controller.text);}, child: const Text("Submit")),
             const SizedBox(height: 20),
             Expanded(
                 child: ListView.builder(
