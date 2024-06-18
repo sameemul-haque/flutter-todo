@@ -56,29 +56,34 @@ class _TodoPageState extends State<TodoPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             TextField(
-                controller: controller,
-                focusNode: myFocusNode,
-                decoration: const InputDecoration(labelText: 'Enter your activity here'),
+              controller: controller,
+              focusNode: myFocusNode,
+              decoration: const InputDecoration(labelText: 'Enter your activity here'),
 
             ),
-            TextButton(onPressed: (){_addTodo(controller.text);}, child: const Text("Submit")),
+            TextButton(onPressed: (){
+              _addTodo(controller.text);
+              controller.clear();
+              myFocusNode.requestFocus();
+            },
+                child: const Text("Submit")),
             const SizedBox(height: 20),
             Expanded(
                 child: ListView.builder(
-                  itemCount: _todoList.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                      title: Text(_todoList[i]),
-                      tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
-                      trailing: Checkbox(
-                        value: _checkedList[i],
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _checkedList[i] = value ?? false;
-                          });
-                        },)
-                    );
-                  }
+                    itemCount: _todoList.length,
+                    itemBuilder: (context, i) {
+                      return ListTile(
+                          title: Text(_todoList[i]),
+                          tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
+                          trailing: Checkbox(
+                            value: _checkedList[i],
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _checkedList[i] = value ?? false;
+                              });
+                            },)
+                      );
+                    }
                 )
             )
           ],
