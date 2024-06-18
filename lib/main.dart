@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/model/todo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,17 +31,20 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  final _todoList = [];
-
-  void _addTodo(val) {
-    setState(() {
-      _todoList.add(val);
-    });
-  }
+  final List<Todo> _todoList = [];
 
   TextEditingController controller = TextEditingController();
   FocusNode myFocusNode = FocusNode();
-  String bullet = "\u2022 ";
+
+  void _addTodo(val) {
+    if (controller.text.isEmpty) return;
+    setState(() {
+      _todoList.add(Todo(
+        action: controller.text,
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +61,6 @@ class _TodoPageState extends State<TodoPage> {
               controller: controller,
               focusNode: myFocusNode,
               decoration: const InputDecoration(labelText: 'Enter your activity here'),
-
             ),
             TextButton(onPressed: (){
               _addTodo(controller.text);
@@ -71,7 +74,7 @@ class _TodoPageState extends State<TodoPage> {
                     itemCount: _todoList.length,
                     itemBuilder: (context, i) {
                       return ListTile(
-                        title: Text(_todoList[i]),
+                        title: Text(_todoList[i].action),
                         tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
                       );
                     }
