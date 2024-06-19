@@ -30,9 +30,9 @@ class TodoPage extends StatefulWidget {
   State<TodoPage> createState() => _TodoPageState();
 }
 
-class _TodoPageState extends State<TodoPage> {
-  final List<Todo> _todoList = [];
+final List<Todo> _todoList = [];
 
+class _TodoPageState extends State<TodoPage> {
   TextEditingController controller = TextEditingController();
   FocusNode myFocusNode = FocusNode();
 
@@ -60,30 +60,60 @@ class _TodoPageState extends State<TodoPage> {
             TextField(
               controller: controller,
               focusNode: myFocusNode,
-              decoration: const InputDecoration(labelText: 'Enter your activity here'),
+              decoration:
+                  const InputDecoration(labelText: 'Enter your activity here'),
             ),
-            TextButton(onPressed: (){
-              _addTodo(controller.text);
-              controller.clear();
-              myFocusNode.requestFocus();
-            },
-                child: const Text("Submit")),
             const SizedBox(height: 20),
-            Expanded(
-                child: ListView.builder(
-                    itemCount: _todoList.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
-                        title: Text(_todoList[i].action),
-                        tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
-                      );
-                    }
-                )
-            )
+            TextButton(
+              onPressed: () {
+                _addTodo(controller.text);
+                controller.clear();
+                myFocusNode.requestFocus();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.lightBlueAccent,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+              ),
+              child: const Text("Submit",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              child: const Text('View Todo List'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ViewTodoList()),
+                );
+              },
+            ),
           ],
         ),
       ),
-
     );
+  }
+}
+
+class ViewTodoList extends StatelessWidget {
+  const ViewTodoList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Second Route'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Expanded(
+              child: ListView.builder(
+                  itemCount: _todoList.length,
+                  itemBuilder: (context, i) {
+                    return ListTile(
+                      title: Text(_todoList[i].action),
+                      tileColor: i % 2 == 0 ? Colors.black26 : Colors.black12,
+                    );
+                  })),
+        ));
   }
 }
